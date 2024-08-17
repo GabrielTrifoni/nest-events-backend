@@ -15,5 +15,5 @@ export class Event {
   when: Date;
 
   @Column()
-  adress: string;
+  address: string;
 }
