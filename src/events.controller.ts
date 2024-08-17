@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -26,27 +27,9 @@ export class EventsController {
     return await this.repository.find();
   }
 
-  @Get('/practice')
-  async practice() {
-    return await this.repository.find({
-      where: [
-        {
-          id: MoreThan(3),
-        },
-        {
-            description: Like('%meet%')
-        }
-      ],
-      take: 2,
-      order: {
-        id: 'DESC'
-      }
-    });
-  }
-
   @Get(':id')
-  async findOne(@Param('id') id) {
-    return await this.repository.findOneBy(id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return await this.repository.findOneBy({id});
   }
 
   @Post()
