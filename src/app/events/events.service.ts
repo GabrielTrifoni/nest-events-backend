@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Event } from './event.entity';
+import { Event } from '../entities/event.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
 
