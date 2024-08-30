@@ -10,12 +10,12 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateEventDto } from './create-event.dto';
-import { UpdateEventDto } from './update-event.dto';
-import { Event } from '../entities/event.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventsService } from './events.service';
+import { Event } from '../entities/event.entity';
+import { CreateEventDto } from './dto/create-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller('/events')
 export class EventsController {
@@ -23,7 +23,7 @@ export class EventsController {
     @InjectRepository(Event)
     private readonly repository: Repository<Event>,
     private readonly eventsService: EventsService
-  ) {}
+  ) { }
 
   @Get()
   async findAll() {
@@ -34,7 +34,7 @@ export class EventsController {
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const event = await this.eventsService.getEvent(id);
 
-    if(!event) {
+    if (!event) {
       throw new NotFoundException();
     }
 
@@ -53,7 +53,7 @@ export class EventsController {
   async update(@Param('id') id, @Body() input: UpdateEventDto) {
     const event = await this.repository.findOneBy({ id });
 
-    if(!event) {
+    if (!event) {
       throw new NotFoundException();
     }
 
@@ -69,10 +69,10 @@ export class EventsController {
   async remove(@Param('id') id) {
     const event = await this.repository.findOneBy({ id });
 
-    if(!event) {
+    if (!event) {
       throw new NotFoundException();
     }
-    
+
     await this.repository.delete(event);
   }
 }
