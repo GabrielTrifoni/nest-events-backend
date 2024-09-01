@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,6 +17,7 @@ import { EventsService } from './events.service';
 import { Event } from '../entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { ListEvents } from './input/list.events';
 
 @Controller('/events')
 export class EventsController {
@@ -26,8 +28,9 @@ export class EventsController {
   ) { }
 
   @Get()
-  async findAll() {
-    return await this.repository.find();
+  async findAll(@Query() filter: ListEvents) {
+    return await this.eventsService
+    .getEventsWithAttendeeCountFiltered(filter);
   }
 
   @Get(':id')
