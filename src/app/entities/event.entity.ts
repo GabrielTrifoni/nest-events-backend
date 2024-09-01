@@ -22,4 +22,9 @@ export class Event {
     eager: true,
   })
   attendees: Attendee[];
+
+  attendeeCount?: number;
+  attendeeAccepted?: number;
+  attendeeMaybe?: number;
+  attendeeRejected?: number;
 }
