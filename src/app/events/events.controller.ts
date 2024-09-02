@@ -10,6 +10,8 @@ import {
   Patch,
   Post,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,13 +26,20 @@ export class EventsController {
   constructor(
     @InjectRepository(Event)
     private readonly repository: Repository<Event>,
-    private readonly eventsService: EventsService
-  ) { }
+    private readonly eventsService: EventsService,
+  ) {}
 
   @Get()
+  @UsePipes(new ValidationPipe({ transform: true }))
   async findAll(@Query() filter: ListEvents) {
-    return await this.eventsService
-    .getEventsWithAttendeeCountFiltered(filter);
+    return await this.eventsService.getEventsWithAttendeeCountFilteredPaginated(
+      filter,
+      {
+        total: true,
+        currentPage: filter.page,
+        limit: 10,
+      },
+    );
   }
 
   @Get(':id')
