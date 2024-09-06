@@ -27,7 +27,7 @@ export class EventsController {
     @InjectRepository(Event)
     private readonly repository: Repository<Event>,
     private readonly eventsService: EventsService,
-  ) {}
+  ) { }
 
   @Get()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -79,12 +79,10 @@ export class EventsController {
   @Delete(':id')
   @HttpCode(204) // No content
   async remove(@Param('id') id) {
-    const event = await this.repository.findOneBy({ id });
+    const result = await this.eventsService.deleteEvent(id);
 
-    if (!event) {
+    if (result?.affected !== 1) {
       throw new NotFoundException();
     }
-
-    await this.repository.delete(event);
   }
 }
