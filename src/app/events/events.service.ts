@@ -79,7 +79,7 @@ export class EventsService {
       }
     }
 
-    return await query;
+    return query;
   }
 
   public async getEventsWithAttendeeCountFilteredPaginated(
@@ -94,11 +94,7 @@ export class EventsService {
 
   public async getEvent(id: number): Promise<Event | undefined> {
     const query = this.getEventsWithAttendeeCountQuery().andWhere(
-      'e.id = :id',
-      {
-        id,
-      },
-    );
+      'e.id = :id', { id });
 
     this.logger.debug(query.getSql());
 

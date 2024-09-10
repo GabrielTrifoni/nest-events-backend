@@ -7,6 +7,7 @@ import ormConfig from './config/orm.config';
 import ormConfigProd from './config/orm.config.prod';
 import { EventsModule } from './app/events/events.module';
 import { SchoolModule } from './app/school/school.module';
+import { AuthModule } from './app/auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SchoolModule } from './app/school/school.module';
       useFactory:
         process.env.NODE_ENV !== 'production' ? ormConfig : ormConfigProd,
     }),
+    AuthModule,
     EventsModule,
     SchoolModule,
   ],
