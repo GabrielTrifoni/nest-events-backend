@@ -87,7 +87,7 @@ export class EventsService {
     paginateOptions: PaginateOptions,
   ) {
     return await paginate(
-      await this.getEventsWithAttendeeCountFiltered(),
+      await this.getEventsWithAttendeeCountFiltered(filter),
       paginateOptions,
     );
   }
