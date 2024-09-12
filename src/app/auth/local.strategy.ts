@@ -6,7 +6,7 @@ import { User } from "./user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     private readonly logger = new Logger(LocalStrategy.name);
 
     constructor(
