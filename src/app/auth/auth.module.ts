@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { User } from "./user.entity";
+import { User } from "../entities/user.entity";
 import { LocalStrategy } from "./local.strategy";
 import { AuthController } from "./auth.controller";
 import { JwtModule } from "@nestjs/jwt";
