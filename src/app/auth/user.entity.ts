@@ -2,17 +2,17 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "ty
 import { Profile } from "./profile.entity";
 
 @Entity()
-export class User{
+export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     username: string;
 
     @Column()
     password: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Column()
