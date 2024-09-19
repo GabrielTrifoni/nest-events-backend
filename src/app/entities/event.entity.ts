@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Attendee } from './attendee.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Event {
@@ -22,6 +23,13 @@ export class Event {
     eager: true,
   })
   attendees: Attendee[];
+
+  @ManyToOne(() => User, (user) => user.organized)
+  @JoinColumn({ name: 'organizerId' })
+  organizer: User;
+
+  @Column({ nullable: true })
+  organizedId: number;
 
   attendeeCount?: number;
   attendeeAccepted?: number;

@@ -3,6 +3,8 @@ import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from "./auth.service";
 import { CurrentUser } from "./current-user.decorator";
 import { User } from "../entities/user.entity";
+import { AuthGuardLocal } from "./auth-guard.local";
+import { AuthGuardJwt } from "./auth-guard.jwt";
 
 @Controller('auth')
 export class AuthController {
@@ -11,7 +13,7 @@ export class AuthController {
     ) { }
 
     @Post('login')
-    @UseGuards(AuthGuard('local'))
+    @UseGuards(AuthGuardLocal)
     async login(@CurrentUser() user: User) {
         return {
             userId: user.id,
@@ -20,7 +22,7 @@ export class AuthController {
     }
 
     @Get('profile')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuardJwt)
     async getProfile(@CurrentUser() user: User) {
         return user;
     }
