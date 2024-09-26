@@ -28,7 +28,6 @@ import { AuthGuardJwt } from '../auth/auth-guard.jwt';
 @Controller('/events')
 export class EventsController {
   constructor(
-    @InjectRepository(Event)
     private readonly eventsService: EventsService,
   ) { }
 
